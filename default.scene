@@ -7,10 +7,29 @@ node
             light = default
         camera
             parent = ROOT
-            position = 0.500000 -0.703594 0.300000
-            rotation = 90.000000 0.000000 0.000000
-        box
+            position = -17.722265 -13.352866 14.639009
+            rotation = 57.599911 0.000000 -57.600002
+            script = scripts/CameraSync.py
+        plain
             parent = ROOT
             position = 0.500000 0.000000 0.300000
-            model = models/box.osgt
+            model = models/plain.osgt
             selectable = 1
+        catch
+            parent = ROOT
+            position = -2.400000 0.000000 0.100000
+            model = models/catch.osgt
+            selectable = 1
+        ball
+            parent = ROOT
+            position = 0.000000 0.000000 1.000000
+            model = models/ball.osgt
+            selectable = 1
+        cleanerBase
+            parent = ROOT
+            position = 0.000000 -5.000000 0.000000
+            model = models/cleanerBase.osgt
+            selectable = 1
+        cleaner
+            parent = cleanerBase
+            model = models/cleaner.osgt
