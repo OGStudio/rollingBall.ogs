@@ -3,33 +3,149 @@ node
     default
         light
             parent = ROOT
-            position = -10.000000 -20.000000 10.000000
+            position = 20.000000 -10.000000 20.000000
             light = default
         camera
             parent = ROOT
-            position = -17.722265 -13.352866 14.639009
-            rotation = 57.599911 0.000000 -57.600002
+            position = 7.851541 -11.873641 4.891214
+            rotation = 63.699921 0.000000 46.800163
             script = scripts/CameraSync.py
-        plain
-            parent = ROOT
-            position = 0.500000 0.000000 0.300000
-            model = models/plain.osgt
-            selectable = 1
-        catch
-            parent = ROOT
-            position = -2.400000 0.000000 0.100000
-            model = models/catch.osgt
-            selectable = 1
-        ball
-            parent = ROOT
-            position = 0.000000 0.000000 1.000000
-            model = models/ball.osgt
-            selectable = 1
         cleanerBase
             parent = ROOT
-            position = 0.000000 -5.000000 0.000000
+            position = -1.930000 -3.000000 -1.300000
+            rotation = 0.000000 0.000000 270.000000
+            material = cleanerBase
             model = models/cleanerBase.osgt
             selectable = 1
         cleaner
             parent = cleanerBase
+            material = cleaner
             model = models/cleaner.osgt
+        track1
+            parent = ROOT
+            selectable = 1
+        plain
+            parent = track1
+            position = 0.500000 0.000000 0.300000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch
+            parent = plain
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        ball
+            parent = plain
+            position = 0.500000 0.000000 0.300000
+            material = ball
+            model = models/ball.osgt
+            selectable = 1
+        plain1
+            parent = track1
+            position = -4.800000 -0.500000 -0.100000
+            rotation = 0.000000 0.000000 90.000000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch1
+            parent = plain1
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        plain2
+            parent = track1
+            position = -4.300000 -5.800000 -0.500000
+            rotation = 0.000000 0.000000 180.000000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch2
+            parent = plain2
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        plain3
+            parent = track1
+            position = 1.000000 -5.300000 -0.900000
+            rotation = 0.000000 0.000000 270.000000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch3
+            parent = plain3
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        track2
+            parent = ROOT
+            position = 0.000000 0.000000 -1.600000
+            selectable = 1
+        plain4
+            parent = track2
+            position = 0.500000 0.000000 0.300000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch4
+            parent = plain4
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        plain5
+            parent = track2
+            position = -4.800000 -0.500000 -0.100000
+            rotation = 0.000000 0.000000 90.000000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch5
+            parent = plain5
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        plain6
+            parent = track2
+            position = -4.300000 -5.800000 -0.500000
+            rotation = 0.000000 0.000000 180.000000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch6
+            parent = plain6
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        plain7
+            parent = track2
+            position = 1.000000 -5.300000 -0.900000
+            rotation = 0.000000 0.000000 270.000000
+            material = plain
+            model = models/plain.osgt
+            selectable = 1
+        catch7
+            parent = plain7
+            position = -2.900000 0.000000 -0.200000
+            material = catch
+            model = models/catch.osgt
+            selectable = 1
+        incomingPipe
+            parent = ROOT
+            position = 1.000000 0.000000 1.200000
+            material = ball
+            model = models/cleanerBase.osgt
+            selectable = 1
+        outgoingPipe
+            parent = ROOT
+            position = 0.990000 1.210000 -1.540000
+            rotation = 180.000000 0.000000 90.000000
+            material = ball
+            model = models/cleaner.osgt
+            selectable = 1
