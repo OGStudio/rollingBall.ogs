@@ -3,57 +3,51 @@ node
     default
         light
             parent = ROOT
-            position = 20.000000 -10.000000 20.000000
+            position = 0.000000 -10.000000 20.000000
             light = default
+            script = scripts/Main.py
         camera
             parent = ROOT
-            position = 7.851541 -11.873641 4.891214
-            rotation = 63.699921 0.000000 46.800163
+            position = -8.526908 3.514816 3.583558
+            rotation = 64.499649 0.000000 -130.299820
             script = scripts/CameraSync.py
-        cleanerBase
-            parent = ROOT
-            position = -1.930000 -3.000000 -1.300000
-            rotation = 0.000000 0.000000 270.000000
-            material = cleanerBase
-            model = models/cleanerBase.osgt
-            selectable = 1
-        cleaner
-            parent = cleanerBase
-            material = cleaner
-            model = models/cleaner.osgt
         track1
             parent = ROOT
-            selectable = 1
-        plain
+        plain0
             parent = track1
             position = 0.500000 0.000000 0.300000
             material = plain
             model = models/plain.osgt
-            selectable = 1
-        catch
-            parent = plain
+        catch0
+            parent = plain0
             position = -2.900000 0.000000 -0.200000
             material = catch
             model = models/catch.osgt
             selectable = 1
+        point0
+            parent = catch0
+            position = 0.500000 0.000000 0.400000
         ball
-            parent = plain
+            parent = plain0
             position = 0.500000 0.000000 0.300000
             material = ball
             model = models/ball.osgt
-            selectable = 1
+            script = scripts/Ball.py
         plain1
             parent = track1
             position = -4.800000 -0.500000 -0.100000
             rotation = 0.000000 0.000000 90.000000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch1
             parent = plain1
             position = -2.900000 0.000000 -0.200000
             material = catch
             model = models/catch.osgt
+            selectable = 1
+        point1
+            parent = catch1
+            position = 0.500000 0.000000 0.400000
             selectable = 1
         plain2
             parent = track1
@@ -61,7 +55,6 @@ node
             rotation = 0.000000 0.000000 180.000000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch2
             parent = plain2
             position = -2.900000 0.000000 -0.200000
@@ -74,7 +67,6 @@ node
             rotation = 0.000000 0.000000 270.000000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch3
             parent = plain3
             position = -2.900000 0.000000 -0.200000
@@ -84,13 +76,11 @@ node
         track2
             parent = ROOT
             position = 0.000000 0.000000 -1.600000
-            selectable = 1
         plain4
             parent = track2
             position = 0.500000 0.000000 0.300000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch4
             parent = plain4
             position = -2.900000 0.000000 -0.200000
@@ -103,7 +93,6 @@ node
             rotation = 0.000000 0.000000 90.000000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch5
             parent = plain5
             position = -2.900000 0.000000 -0.200000
@@ -116,7 +105,6 @@ node
             rotation = 0.000000 0.000000 180.000000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch6
             parent = plain6
             position = -2.900000 0.000000 -0.200000
@@ -129,7 +117,6 @@ node
             rotation = 0.000000 0.000000 270.000000
             material = plain
             model = models/plain.osgt
-            selectable = 1
         catch7
             parent = plain7
             position = -2.900000 0.000000 -0.200000
@@ -141,11 +128,21 @@ node
             position = 1.000000 0.000000 1.200000
             material = ball
             model = models/cleanerBase.osgt
-            selectable = 1
         outgoingPipe
             parent = ROOT
-            position = 0.990000 1.210000 -1.540000
+            position = 0.990000 1.420000 -1.200000
             rotation = 180.000000 0.000000 90.000000
             material = ball
             model = models/cleaner.osgt
-            selectable = 1
+        cleanerBase
+            parent = ROOT
+            position = -1.900000 -2.900000 1.000000
+            rotation = 0.000000 0.000000 270.000000
+            material = cleanerBase
+            model = models/cleanerBase.osgt
+        cleaner
+            parent = cleanerBase
+            rotation = 0.000000 0.000000 45.000000
+            material = cleaner
+            model = models/cleaner.osgt
+            script = scripts/Cleaner.py

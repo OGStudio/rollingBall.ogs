@@ -1,0 +1,23 @@
+move
+    default
+        moveDown
+            point = 0 0 0 0
+            point = 500 -0.5 0 0
+            point = 2100 -2.5 0 -0.2
+            point = 900 -3.4 0 -0.2
+            point = 2100 -5.4 0 -0.4
+            point = 400 -5.8 0 -0.4
+rotate
+    default
+        rotateDown
+            point = 0 0 0 0
+            point = 500 0 -135 0
+            point = 2100 0 -135 0
+            point = 900 0 -297 0
+            point = 2100 0 -297 0
+            point = 400 0 -405 0
+spawn
+    default
+        rollDown
+            action = move.moveDown
+            action = rotate.rotateDown
