@@ -61,6 +61,10 @@ node
             material = catch
             model = models/catch.osgt
             selectable = 1
+        point2
+            parent = catch2
+            position = 0.500000 0.000000 0.400000
+            selectable = 1
         plain3
             parent = track1
             position = 1.000000 -5.300000 -0.900000
@@ -72,6 +76,10 @@ node
             position = -2.900000 0.000000 -0.200000
             material = catch
             model = models/catch.osgt
+            selectable = 1
+        point3
+            parent = catch3
+            position = 0.500000 0.000000 0.400000
             selectable = 1
         track2
             parent = ROOT
@@ -87,6 +95,10 @@ node
             material = catch
             model = models/catch.osgt
             selectable = 1
+        point4
+            parent = catch4
+            position = 0.500000 0.000000 0.400000
+            selectable = 1
         plain5
             parent = track2
             position = -4.800000 -0.500000 -0.100000
@@ -98,6 +110,10 @@ node
             position = -2.900000 0.000000 -0.200000
             material = catch
             model = models/catch.osgt
+            selectable = 1
+        point5
+            parent = catch5
+            position = 0.500000 0.000000 0.400000
             selectable = 1
         plain6
             parent = track2
@@ -111,6 +127,10 @@ node
             material = catch
             model = models/catch.osgt
             selectable = 1
+        point6
+            parent = catch6
+            position = 0.500000 0.000000 0.400000
+            selectable = 1
         plain7
             parent = track2
             position = 1.000000 -5.300000 -0.900000
@@ -122,6 +142,10 @@ node
             position = -2.900000 0.000000 -0.200000
             material = catch
             model = models/catch.osgt
+            selectable = 1
+        point7
+            parent = catch7
+            position = 0.500000 0.000000 0.400000
             selectable = 1
         incomingPipe
             parent = ROOT
@@ -136,7 +160,7 @@ node
             model = models/cleaner.osgt
         cleanerBase
             parent = ROOT
-            position = -1.900000 -2.900000 1.000000
+            position = -1.900000 -2.900000 0.000000
             rotation = 0.000000 0.000000 270.000000
             material = cleanerBase
             model = models/cleanerBase.osgt

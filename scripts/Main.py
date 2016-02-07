@@ -5,6 +5,7 @@ MAIN_BALL_NAME      = "ball"
 MAIN_CLEANER_NAME   = "cleaner"
 MAIN_TRACK_PARTS_NB = 8
 MAIN_PLAIN_NAME     = "plain"
+MAIN_CATCH_NAME     = "catch"
 
 class MainImpl(object):
     def __init__(self, c):
@@ -23,7 +24,10 @@ class MainImpl(object):
         self.rollBall()
     def onCatch(self, key, value):
         print "onCatch", key, value
-        self.c.set("$CLEANER.$SCENE.$CLEANER.catch", "smth")
+        nodeName = key[2]
+        v = nodeName.split(MAIN_CATCH_NAME)
+        if (len(v) == 2):
+            self.c.set("$CLEANER.$SCENE.$CLEANER.catch", v[1])
     def onGameStart(self, key, value):
         print "Game started", key, value
         self.ballInitialPos = self.c.get("node.$SCENE.$BALL.position")[0]
