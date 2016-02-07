@@ -1,12 +1,14 @@
 
 from pymjin2 import *
 
-MAIN_BALL_NAME      = "ball"
-MAIN_BALLS_NB       = 8
-MAIN_CLEANER_NAME   = "cleaner"
-MAIN_TRACK_PARTS_NB = 8
-MAIN_PLAIN_NAME     = "plain"
-MAIN_CATCH_NAME     = "catch"
+MAIN_BALL_NAME       = "ball"
+MAIN_BALLS_NB        = 8
+MAIN_CLEANER_NAME    = "cleaner"
+MAIN_TRACK_PARTS_NB  = 8
+MAIN_PLAIN_NAME      = "plain"
+MAIN_CATCH_NAME      = "catch"
+MAIN_SOUND_SELECTION = "soundBuffer.default.selection"
+MAIN_SOUND_START     = "soundBuffer.default.start"
 
 class MainImpl(object):
     def __init__(self, c):
@@ -18,6 +20,7 @@ class MainImpl(object):
         self.ballsLeft = MAIN_BALLS_NB
         self.ballsCatched = 0
         self.isCatching = False
+        self.isStarted = False
     def __del__(self):
         self.c = None
     def onBallStopped(self, key, value):
@@ -35,19 +38,24 @@ class MainImpl(object):
             self.ballWaiting = self.trackPartID
         self.tryToCatch()
     def onCatch(self, key, value):
+        if (not self.isStarted):
+            return
         nodeName = key[2]
         v = nodeName.split(MAIN_CATCH_NAME)
         if (len(v) == 2):
             self.c.set("$CLEANER.$SCENE.$CLEANER.catch", v[1])
+            self.c.set("$SELSOUND.state", "play")
     def onCleanerPicking(self, key, value):
         self.cleanerPicking = None
         if (len(value[0])):
             self.cleanerPicking = int(value[0])
         self.tryToCatch()
     def onGameStart(self, key, value):
+        self.isStarted = True
         print "Game started", key, value
         self.ballInitialPos = self.c.get("node.$SCENE.$BALL.position")[0]
         self.rollBall()
+        self.c.set("$STARTSOUND.state", "play")
     def restartBallSequence(self):
         self.ballsLeft = self.ballsLeft - 1
         if (self.ballsLeft == 0):
@@ -84,9 +92,11 @@ class Main(object):
     def __init__(self, sceneName, nodeName, env):
         self.c = EnvironmentClient(env, "Main")
         self.impl = MainImpl(self.c)
-        self.c.setConst("SCENE",    sceneName)
-        self.c.setConst("BALL",     MAIN_BALL_NAME)
-        self.c.setConst("CLEANER",  MAIN_CLEANER_NAME)
+        self.c.setConst("SCENE",      sceneName)
+        self.c.setConst("BALL",       MAIN_BALL_NAME)
+        self.c.setConst("CLEANER",    MAIN_CLEANER_NAME)
+        self.c.setConst("SELSOUND",   MAIN_SOUND_SELECTION)
+        self.c.setConst("STARTSOUND", MAIN_SOUND_START)
         self.c.listen("input.SPACE.key", "1", self.impl.onGameStart)
         self.c.listen("$BALL.$SCENE.$BALL.moving", "0", self.impl.onBallStopped)
         self.c.listen("node.$SCENE..selected", "1", self.impl.onCatch)

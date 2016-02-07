@@ -3,6 +3,7 @@ from pymjin2 import *
 
 BALL_ACTION        = "spawn.default.rollDown"
 BALL_ACTION_REPORT = "delay.default.ballIsWaiting"
+BALL_SOUND         = "soundBuffer.default.rolling"
 
 class BallImpl(object):
     def __init__(self, c):
@@ -15,15 +16,20 @@ class BallImpl(object):
         self.c.report("$BALL.$SCENE.$BALL.moving", "0")
     def setMoving(self, key, value):
         self.c.set("$MOVE.$SCENE.$BALL.active", value[0])
+        state = "play"
+        if (value[0] == "0"):
+            state = "stop"
+        self.c.set("$ROLLSOUND.state", state)
 
 class Ball(object):
     def __init__(self, sceneName, nodeName, env):
         self.c = EnvironmentClient(env, "Ball")
         self.impl = BallImpl(self.c)
-        self.c.setConst("SCENE",  sceneName)
-        self.c.setConst("BALL",   nodeName)
-        self.c.setConst("MOVE",   BALL_ACTION)
-        self.c.setConst("REPORT", BALL_ACTION_REPORT)
+        self.c.setConst("SCENE",     sceneName)
+        self.c.setConst("BALL",      nodeName)
+        self.c.setConst("MOVE",      BALL_ACTION)
+        self.c.setConst("REPORT",    BALL_ACTION_REPORT)
+        self.c.setConst("ROLLSOUND", BALL_SOUND)
         self.c.provide("$BALL.$SCENE.$BALL.moving", self.impl.setMoving)
         self.c.provide("$BALL.$SCENE.$BALL.waiting")
         self.c.listen("$MOVE.$SCENE.$BALL.active", "0", self.impl.onStopped)

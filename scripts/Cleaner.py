@@ -8,6 +8,8 @@ CLEANER_ACTION_MRETURN   = "move.default.mReturn"
 CLEANER_ACTION_RRETURN   = "rotate.default.rReturn"
 CLEANER_ACTION_PICK      = "delay.default.waitForBall"
 CLEANER_POINT_NAME       = "point"
+CLEANER_SOUND_MOVE       = "soundBuffer.default.drill"
+CLEANER_SOUND_TAKE       = "soundBuffer.default.cleaner"
 
 class CleanerImpl(object):
     def __init__(self, c):
@@ -18,11 +20,17 @@ class CleanerImpl(object):
         self.trackPartID = None
     def __del__(self):
         self.c = None
+    def onMotion(self, key, value):
+        val = "play" if value[0] == "1" else "stop"
+        self.c.set("$MOTIONSOUND.state", val)
     def onPicking(self, key, value):
         val = ""
+        state = "stop"
         if (value[0] == "1"):
             val = self.trackPartID
+            state = "play"
         self.c.report("$CLEANER.$SCENE.$CLEANER.picking", val)
+        self.c.set("$TAKINGSOUND.state", state)
     def setup(self):
         p = self.c.get("$MPOSITION.point")
         self.speed = p[0].split(" ")[0]
@@ -57,17 +65,21 @@ class Cleaner(object):
     def __init__(self, sceneName, nodeName, env):
         self.c = EnvironmentClient(env, "Cleaner")
         self.impl = CleanerImpl(self.c)
-        self.c.setConst("SCENE",     sceneName)
-        self.c.setConst("CLEANER",   nodeName)
-        self.c.setConst("FACE",      CLEANER_ACTION)
-        self.c.setConst("MPOSITION", CLEANER_ACTION_MPOSITION)
-        self.c.setConst("RPOSITION", CLEANER_ACTION_RPOSITION)
-        self.c.setConst("MRETURN",   CLEANER_ACTION_MRETURN)
-        self.c.setConst("RRETURN",   CLEANER_ACTION_RRETURN)
-        self.c.setConst("PICK",      CLEANER_ACTION_PICK)
+        self.c.setConst("SCENE",       sceneName)
+        self.c.setConst("CLEANER",     nodeName)
+        self.c.setConst("FACE",        CLEANER_ACTION)
+        self.c.setConst("MPOSITION",   CLEANER_ACTION_MPOSITION)
+        self.c.setConst("RPOSITION",   CLEANER_ACTION_RPOSITION)
+        self.c.setConst("MRETURN",     CLEANER_ACTION_MRETURN)
+        self.c.setConst("RRETURN",     CLEANER_ACTION_RRETURN)
+        self.c.setConst("PICK",        CLEANER_ACTION_PICK)
+        self.c.setConst("MOTIONSOUND", CLEANER_SOUND_MOVE)
+        self.c.setConst("TAKINGSOUND", CLEANER_SOUND_TAKE)
         self.c.provide("$CLEANER.$SCENE.$CLEANER.catch", self.impl.setCatch)
         self.c.provide("$CLEANER.$SCENE.$CLEANER.picking")
         self.c.listen("$PICK.$SCENE.$CLEANER.active", None, self.impl.onPicking)
+        self.c.listen("$MPOSITION.$SCENE.$CLEANER.active", None, self.impl.onMotion)
+        self.c.listen("$MRETURN.$SCENE.$CLEANER.active", None, self.impl.onMotion)
     def __del__(self):
         # Tear down.
         self.c.clear()

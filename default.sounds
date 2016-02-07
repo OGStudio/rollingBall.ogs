@@ -1,0 +1,13 @@
+soundBuffer
+    default
+        rolling
+            file = sounds/rolling_ball.ogg
+            loop = 1
+        selection
+            file = sounds/selection.ogg
+        start
+            file = sounds/start.ogg
+        cleaner
+            file = sounds/cleaner.ogg
+        drill
+            file = sounds/drill.ogg
