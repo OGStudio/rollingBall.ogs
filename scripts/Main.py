@@ -23,11 +23,12 @@ class MainImpl(object):
         self.c.set("node.$SCENE.$BALL.position", self.ballInitialPos)
         self.rollBall()
     def onCatch(self, key, value):
-        print "onCatch", key, value
         nodeName = key[2]
         v = nodeName.split(MAIN_CATCH_NAME)
         if (len(v) == 2):
             self.c.set("$CLEANER.$SCENE.$CLEANER.catch", v[1])
+    def onCleanerPicking(self, key, value):
+        print "onCleanerPicking", key, value
     def onGameStart(self, key, value):
         print "Game started", key, value
         self.ballInitialPos = self.c.get("node.$SCENE.$BALL.position")[0]
@@ -45,6 +46,7 @@ class Main(object):
         self.c.listen("input.SPACE.key", "1", self.impl.onGameStart)
         self.c.listen("$BALL.$SCENE.$BALL.moving", "0", self.impl.onBallStopped)
         self.c.listen("node.$SCENE..selected", "1", self.impl.onCatch)
+        self.c.listen("$CLEANER.$SCENE.$CLEANER.picking", None, self.impl.onCleanerPicking)
     def __del__(self):
         # Tear down.
         self.c.clear()

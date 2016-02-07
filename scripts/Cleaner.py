@@ -6,6 +6,7 @@ CLEANER_ACTION_MPOSITION = "move.default.mPosition"
 CLEANER_ACTION_RPOSITION = "rotate.default.rPosition"
 CLEANER_ACTION_MRETURN   = "move.default.mReturn"
 CLEANER_ACTION_RRETURN   = "rotate.default.rReturn"
+CLEANER_ACTION_PICK      = "delay.default.waitForBall"
 CLEANER_POINT_NAME       = "point"
 
 class CleanerImpl(object):
@@ -14,8 +15,14 @@ class CleanerImpl(object):
         self.speed = None
         self.initialPos = None
         self.initialRot = None
+        self.trackPartID = None
     def __del__(self):
         self.c = None
+    def onPicking(self, key, value):
+        val = ""
+        if (value[0] == "1"):
+            val = self.trackPartID
+        self.c.report("$CLEANER.$SCENE.$CLEANER.picking", val)
     def setup(self):
         p = self.c.get("$MPOSITION.point")
         self.speed = p[0].split(" ")[0]
@@ -27,8 +34,8 @@ class CleanerImpl(object):
         value = "{0} {1}".format(self.speed, self.initialRot)
         self.c.set("$RRETURN.point", value)
     def setCatch(self, key, value):
-        print "setCatch", key, value
-        self.c.setConst("POINT", CLEANER_POINT_NAME + value[0])
+        self.trackPartID = value[0]
+        self.c.setConst("POINT", CLEANER_POINT_NAME + self.trackPartID)
         # The first call.
         if (self.speed is None):
             self.setup()
@@ -57,8 +64,10 @@ class Cleaner(object):
         self.c.setConst("RPOSITION", CLEANER_ACTION_RPOSITION)
         self.c.setConst("MRETURN",   CLEANER_ACTION_MRETURN)
         self.c.setConst("RRETURN",   CLEANER_ACTION_RRETURN)
+        self.c.setConst("PICK",      CLEANER_ACTION_PICK)
         self.c.provide("$CLEANER.$SCENE.$CLEANER.catch", self.impl.setCatch)
-        #self.c.listen("$MOVE.$SCENE.$BALL.active", "0", self.impl.onStopped)
+        self.c.provide("$CLEANER.$SCENE.$CLEANER.picking")
+        self.c.listen("$PICK.$SCENE.$CLEANER.active", None, self.impl.onPicking)
     def __del__(self):
         # Tear down.
         self.c.clear()
