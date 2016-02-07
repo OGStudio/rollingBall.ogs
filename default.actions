@@ -2,6 +2,12 @@ delay
     default
         waitForBall
             delay = 1000
+        ballStartsToRoll
+            delay = 2900
+        ballIsWaiting
+            delay = 300
+        ballStopsToRoll
+            delay = 2800
 move
     default
         moveDown
@@ -13,10 +19,9 @@ move
             point = 400 -5.8 0 -0.4
         mPosition
             relative = 0
-            point = 5000 0 0 0
+            point = 3000 0 0 0
         mReturn
             relative = 0
-            point = 5000 0 0 0
 rotate
     default
         rotateDown
@@ -28,15 +33,20 @@ rotate
             point = 400 0 -405 0
         rPosition
             relative = 0
-            point = 5000 0 0 0
         rReturn
             relative = 0
-            point = 5000 0 0 0
+sequence
+    default
+        rollReport
+            action = delay.ballStartsToRoll
+            action = delay.ballIsWaiting
+            action = delay.ballStopsToRoll
 spawn
     default
         rollDown
             action = move.moveDown
             action = rotate.rotateDown
+            action = sequence.rollReport
         positionCleaner
             action = rotate.rPosition
             action = move.mPosition
