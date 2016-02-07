@@ -2,7 +2,7 @@
 from pymjin2 import *
 
 MAIN_BALL_NAME      = "ball"
-MAIN_BALLS_NB       = 4
+MAIN_BALLS_NB       = 8
 MAIN_CLEANER_NAME   = "cleaner"
 MAIN_TRACK_PARTS_NB = 8
 MAIN_PLAIN_NAME     = "plain"
